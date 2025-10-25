@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface ImpactStoryRepository extends JpaRepository<ImpactStory, Long> {
-    List<ImpactStory> findByCampaignCampaignId(Long campaignId);
 
     List<ImpactStory> findByCampaign_CampaignId(Long campaignId);
+
+    List<ImpactStory> findByCampaign_CreatedBy_UserId(Long adminId);
+
 }

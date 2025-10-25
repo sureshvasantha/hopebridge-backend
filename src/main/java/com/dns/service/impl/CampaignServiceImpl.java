@@ -39,7 +39,6 @@ public class CampaignServiceImpl implements CampaignService {
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/campaigns/";
 
     @Override
-    // @PreAuthorize("#adminId == authentication.principal.id or hasRole('ADMIN')")
     public CampaignDTO createCampaign(Long adminId, String campaignJson, List<MultipartFile> imageFiles)
             throws IOException {
 
