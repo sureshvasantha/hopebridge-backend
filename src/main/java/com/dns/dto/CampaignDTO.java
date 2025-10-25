@@ -40,4 +40,5 @@ public class CampaignDTO {
     private String location;
     private Long createdBy; // user_id reference
     private List<CampaignImageDTO> images;
+    private List<ImpactStoryDTO> stories;
 }

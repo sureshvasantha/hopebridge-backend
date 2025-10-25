@@ -14,6 +14,7 @@ import com.dns.repository.entity.User;
 import com.dns.repository.entity.enums.CampaignStatus;
 import com.dns.repository.entity.enums.CampaignType;
 import com.dns.service.CampaignService;
+import com.dns.service.S3Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class CampaignServiceImpl implements CampaignService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final ObjectMapper objectMapper;
+    private final S3Service s3Service;
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/campaigns/";
 
@@ -64,32 +66,15 @@ public class CampaignServiceImpl implements CampaignService {
         else
             campaign.setEndDate(LocalDate.now());
 
-        // ✅ Ensure upload directory exists
-        try {
-            Files.createDirectories(Paths.get(UPLOAD_DIR));
-        } catch (IOException e) {
-            throw new FileStorageException("Could not create upload directory: " + UPLOAD_DIR);
-        }
-
-        // ✅ Handle file uploads
         List<CampaignImage> images = new ArrayList<>();
+
         if (imageFiles != null && !imageFiles.isEmpty()) {
             for (MultipartFile file : imageFiles) {
-                if (!file.isEmpty()) {
-                    String uniqueName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-                    Path filePath = Paths.get(UPLOAD_DIR, uniqueName);
-
-                    try {
-                        file.transferTo(filePath.toFile());
-                    } catch (IOException e) {
-                        throw new FileStorageException("Failed to store file: " + file.getOriginalFilename());
-                    }
-
-                    CampaignImage img = new CampaignImage();
-                    img.setImageUrl("/" + UPLOAD_DIR + "/" + uniqueName);
-                    img.setCampaign(campaign);
-                    images.add(img);
-                }
+                String fileUrl = s3Service.uploadFile(file, "campaigns");
+                CampaignImage img = new CampaignImage();
+                img.setImageUrl(fileUrl);
+                img.setCampaign(campaign);
+                images.add(img);
             }
         }
 
@@ -138,30 +123,22 @@ public class CampaignServiceImpl implements CampaignService {
         existing.setLocation(campaignDTO.getLocation());
         existing.setStatus(campaignDTO.getStatus());
 
-        // --- Overwrite image set completely ---
-        if (imageFiles != null) {
-            // Clear all old images first
-            if (existing.getImages() != null) {
-                existing.getImages().clear();
-            } else {
-                existing.setImages(new ArrayList<>());
+        // Delete old images from S3 and DB
+        if (existing.getImages() != null) {
+            for (CampaignImage img : existing.getImages()) {
+                s3Service.deleteFile(img.getImageUrl());
             }
+            existing.getImages().clear();
+        }
 
-            // Save new images
-            if (!imageFiles.isEmpty()) {
-                Files.createDirectories(Paths.get(UPLOAD_DIR));
-                for (MultipartFile file : imageFiles) {
-                    if (!file.isEmpty()) {
-                        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-                        Path filePath = Paths.get(UPLOAD_DIR, fileName);
-                        file.transferTo(filePath.toFile());
-
-                        CampaignImage newImage = new CampaignImage();
-                        newImage.setImageUrl("/" + UPLOAD_DIR + fileName);
-                        newImage.setCampaign(existing);
-                        existing.getImages().add(newImage);
-                    }
-                }
+        // Upload new images
+        if (imageFiles != null && !imageFiles.isEmpty()) {
+            for (MultipartFile file : imageFiles) {
+                String fileUrl = s3Service.uploadFile(file, "campaigns");
+                CampaignImage img = new CampaignImage();
+                img.setImageUrl(fileUrl);
+                img.setCampaign(existing);
+                existing.getImages().add(img);
             }
         }
 
@@ -198,14 +175,6 @@ public class CampaignServiceImpl implements CampaignService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public void deleteCampaign(Long id) {
-        if (!campaignRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Campaign not found with ID: " + id);
-        }
-        campaignRepository.deleteById(id);
-    }
-
     // -------------------- GET (Admin) --------------------
     @Override
     public List<CampaignDTO> getCampaignsByAdmin(Long adminId) {
@@ -223,6 +192,15 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     // -------------------- GET (Public) --------------------
+
+    @Override
+    public List<CampaignDTO> searchActiveCampaigns(CampaignType type, String location, String keyword) {
+        List<Campaign> campaigns = campaignRepository.searchActiveCampaigns(type, location, keyword);
+        return campaigns.stream()
+                .map(c -> modelMapper.map(c, CampaignDTO.class))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<CampaignDTO> getAllCampaigns() {
         List<Campaign> campaigns = campaignRepository.findAll();

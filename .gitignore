@@ -2,3 +2,5 @@
 target/
 *.gz
 uploads/
+/**/env.properties
+*.csv

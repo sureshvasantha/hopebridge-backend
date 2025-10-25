@@ -6,6 +6,7 @@ import com.dns.exception.FileStorageException;
 import com.dns.exception.ResourceNotFoundException;
 import com.dns.exception.UnauthorizedActionException;
 import com.dns.repository.CampaignRepository;
+import com.dns.repository.DonationRepository;
 import com.dns.repository.ImpactStoryRepository;
 import com.dns.repository.UserRepository;
 import com.dns.repository.entity.Campaign;
@@ -13,6 +14,7 @@ import com.dns.repository.entity.ImpactImage;
 import com.dns.repository.entity.ImpactStory;
 import com.dns.repository.entity.User;
 import com.dns.service.ImpactStoryService;
+import com.dns.service.S3Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,9 +35,10 @@ public class ImpactStoryServiceImpl implements ImpactStoryService {
     private final CampaignRepository campaignRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/impact_stories/";
+    private final ObjectMapper objectMapper;
+    private final ImpactStoryRepository storyRepository;
+    private final DonationRepository donationRepository;
+    private final S3Service s3Service;
 
     @Override
     public ImpactStoryDTO createImpactStory(Long adminId, Long campaignId, String storyJson,
@@ -62,30 +65,18 @@ public class ImpactStoryServiceImpl implements ImpactStoryService {
         story.setPostedDate(LocalDateTime.now());
 
         // ✅ Handle image upload
-        Files.createDirectories(Paths.get(UPLOAD_DIR));
-        List<ImpactImage> images = new ArrayList<>();
-
+        List<ImpactImage> imageEntities = new ArrayList<>();
         if (imageFiles != null && !imageFiles.isEmpty()) {
             for (MultipartFile file : imageFiles) {
-                if (!file.isEmpty()) {
-                    String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-                    Path filePath = Paths.get(UPLOAD_DIR, fileName);
-
-                    try {
-                        file.transferTo(filePath.toFile());
-                    } catch (IOException e) {
-                        throw new FileStorageException("Failed to store file: " + file.getOriginalFilename());
-                    }
-
-                    ImpactImage img = new ImpactImage();
-                    img.setImageUrl("/uploads/impact_stories/" + fileName);
-                    img.setStory(story);
-                    images.add(img);
-                }
+                String imageUrl = s3Service.uploadFile(file, "impact-stories");
+                ImpactImage img = new ImpactImage();
+                img.setImageUrl(imageUrl);
+                img.setStory(story);
+                imageEntities.add(img);
             }
         }
+        story.setImages(imageEntities);
 
-        story.setImages(images);
         ImpactStory saved = impactStoryRepository.save(story);
 
         // Return DTO response
@@ -100,6 +91,23 @@ public class ImpactStoryServiceImpl implements ImpactStoryService {
     @Override
     public List<ImpactStoryDTO> getImpactStoriesByCampaign(Long campaignId) {
         List<ImpactStory> stories = impactStoryRepository.findByCampaign_CampaignId(campaignId);
+        return stories.stream()
+                .map(story -> modelMapper.map(story, ImpactStoryDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ImpactStoryDTO> getStoriesByCampaignId(Long campaignId) {
+        List<ImpactStory> stories = storyRepository.findByCampaign_CampaignId(campaignId);
+        return stories.stream()
+                .map(story -> modelMapper.map(story, ImpactStoryDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ImpactStoryDTO> getStoriesByDonor(Long donorId) {
+        List<ImpactStory> stories = storyRepository.findByCampaign_CampaignIdIn(
+                donationRepository.findCampaignIdsByDonor(donorId));
         return stories.stream()
                 .map(story -> modelMapper.map(story, ImpactStoryDTO.class))
                 .collect(Collectors.toList());

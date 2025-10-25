@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+// Campaign controller for admin
 @RestController
 @RequestMapping("/api/admins/{adminId}/campaigns")
 @RequiredArgsConstructor
@@ -61,7 +62,7 @@ public class CampaignController {
     }
 
     // @PreAuthorize("#adminId == authentication.principal.id")
-    @PatchMapping("/{adminId}/campaigns/{campaignId}/status")
+    @PatchMapping("/{campaignId}/status")
     public ResponseEntity<CampaignDTO> updateCampaignStatus(
             @PathVariable Long adminId,
             @PathVariable Long campaignId,
@@ -72,7 +73,7 @@ public class CampaignController {
     }
 
     // @PreAuthorize("#adminId == authentication.principal.id")
-    @GetMapping("/{adminId}/campaigns/{campaignId}/donations")
+    @GetMapping("/{campaignId}/donations")
     public ResponseEntity<List<DonationDTO>> getDonationsByCampaign(
             @PathVariable Long adminId, @PathVariable Long campaignId) {
         return ResponseEntity.ok(campaignService.getDonationsByCampaign(adminId, campaignId));

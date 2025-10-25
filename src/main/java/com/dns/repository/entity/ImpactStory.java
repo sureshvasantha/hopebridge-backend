@@ -32,6 +32,6 @@ public class ImpactStory {
     @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
-    @OneToMany(mappedBy = "impactStory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "story", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImpactImage> images = new ArrayList<>();
 }

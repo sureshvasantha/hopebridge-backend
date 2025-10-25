@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+// ImpactStory for Admin
 @RestController
 @RequestMapping("/api/admins/{adminId}/impact-stories")
 @RequiredArgsConstructor

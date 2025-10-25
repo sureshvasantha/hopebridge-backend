@@ -24,8 +24,6 @@ public interface CampaignService {
 
     List<DonationDTO> getDonationsByCampaign(Long adminId, Long campaignId);
 
-    void deleteCampaign(Long id);
-
     // Get (Public)
     List<CampaignDTO> getAllCampaigns();
 
@@ -39,4 +37,6 @@ public interface CampaignService {
     List<CampaignDTO> getCampaignsByAdmin(Long adminId);
 
     CampaignDTO getCampaignByAdminAndId(Long adminId, Long campaignId);
+
+    List<CampaignDTO> searchActiveCampaigns(CampaignType type, String location, String keyword);
 }
