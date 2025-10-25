@@ -1,22 +1,42 @@
 package com.dns.service;
 
+import com.dns.dto.CampaignDTO;
+import com.dns.dto.DonationDTO;
 import com.dns.repository.entity.Campaign;
+import com.dns.repository.entity.enums.CampaignStatus;
 import com.dns.repository.entity.enums.CampaignType;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public interface CampaignService {
-    Campaign createCampaign(Campaign campaign);
 
-    List<Campaign> getAllCampaigns();
+    // CRUD (ADMIN)
+    CampaignDTO createCampaign(Long adminId, String campaignJson, List<MultipartFile> imageFiles) throws IOException;
 
-    Optional<Campaign> getCampaignById(Long id);
+    CampaignDTO updateCampaign(Long adminId, Long campaignId, String campaignJson, List<MultipartFile> imageFiles)
+            throws IOException;
 
-    List<Campaign> getCampaignsByType(CampaignType type);
+    CampaignDTO updateCampaignStatus(Long adminId, Long campaignId, CampaignStatus status);
 
-    List<Campaign> getCampaignsByLocation(String location);
-
-    Campaign updateCampaign(Long id, Campaign updatedCampaign);
+    List<DonationDTO> getDonationsByCampaign(Long adminId, Long campaignId);
 
     void deleteCampaign(Long id);
+
+    // Get (Public)
+    List<CampaignDTO> getAllCampaigns();
+
+    CampaignDTO getCampaignById(Long id);
+
+    List<CampaignDTO> getCampaignsByType(CampaignType type);
+
+    List<CampaignDTO> getCampaignsByLocation(String location);
+
+    // Get (Admin)
+    List<CampaignDTO> getCampaignsByAdmin(Long adminId);
+
+    CampaignDTO getCampaignByAdminAndId(Long adminId, Long campaignId);
 }

@@ -8,6 +8,7 @@ import com.dns.repository.entity.enums.CampaignStatus;
 import com.dns.repository.entity.enums.CampaignType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign, Long> {
@@ -22,4 +23,8 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
     List<Campaign> findByTitleContainingIgnoreCase(String keyword);
 
     List<Campaign> findByLocationContainingIgnoreCase(String location);
+
+    List<Campaign> findByCreatedBy_UserId(Long adminId);
+
+    Optional<Campaign> findByCampaignIdAndCreatedBy_UserId(Long campaignId, Long adminId);
 }

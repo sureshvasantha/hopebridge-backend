@@ -3,6 +3,7 @@ package com.dns.repository.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dns.repository.entity.enums.CampaignStatus;
@@ -43,8 +44,8 @@ public class Campaign {
     @JoinColumn(name = "created_by")
     private User createdBy;
 
-    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<CampaignImage> images;
+    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CampaignImage> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
     private List<Donation> donations;
