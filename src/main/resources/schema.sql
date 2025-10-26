@@ -46,15 +46,21 @@ CREATE TABLE campaign_images (
 );
 
 CREATE TABLE donations (
-    donation_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    donation_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     amount DOUBLE NOT NULL,
-    payment_id VARCHAR(100),
+    currency VARCHAR(10) DEFAULT 'INR',
     status VARCHAR(20) CHECK (status IN ('SUCCESS', 'FAILED', 'PENDING')),
+    payment_session_id VARCHAR(255),
+    payment_intent_id VARCHAR(255),
+    payment_method VARCHAR(100),
+    payment_method_type VARCHAR(50),
+    transaction_id VARCHAR(255),
+    receipt_url VARCHAR(500),
     donation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     donor_id BIGINT,
     campaign_id BIGINT,
-    FOREIGN KEY (donor_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id) ON DELETE CASCADE
+    FOREIGN KEY (donor_id) REFERENCES users(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id) ON DELETE SET NULL
 );
 
 CREATE TABLE impact_stories (

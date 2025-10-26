@@ -3,7 +3,6 @@ package com.dns.service.impl;
 import com.dns.dto.CampaignDTO;
 import com.dns.dto.CampaignImageDTO;
 import com.dns.dto.DonationDTO;
-import com.dns.exception.FileStorageException;
 import com.dns.exception.ResourceNotFoundException;
 import com.dns.exception.UnauthorizedActionException;
 import com.dns.repository.CampaignRepository;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,8 +35,6 @@ public class CampaignServiceImpl implements CampaignService {
     private final ModelMapper modelMapper;
     private final ObjectMapper objectMapper;
     private final S3Service s3Service;
-
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/campaigns/";
 
     @Override
     public CampaignDTO createCampaign(Long adminId, String campaignJson, List<MultipartFile> imageFiles)
@@ -231,5 +227,4 @@ public class CampaignServiceImpl implements CampaignService {
                 .map(campaign -> modelMapper.map(campaign, CampaignDTO.class))
                 .collect(Collectors.toList());
     }
-
 }

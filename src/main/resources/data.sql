@@ -1,6 +1,12 @@
+-- ========================
+-- ROLES
+-- ========================
 INSERT INTO roles (role_name) VALUES ('ADMIN');
 INSERT INTO roles (role_name) VALUES ('DONOR');
 
+-- ========================
+-- USERS
+-- ========================
 INSERT INTO users (name, email, password, profile_picture)
 VALUES 
 ('Suresh', 'suresh@hopebridge.org', 'admin123', 'https://cdn.hopebridge.org/profiles/suresh.jpg'),
@@ -11,6 +17,9 @@ INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO user_roles (user_id, role_id) VALUES (2, 2);
 INSERT INTO user_roles (user_id, role_id) VALUES (3, 2);
 
+-- ========================
+-- CAMPAIGNS
+-- ========================
 INSERT INTO campaigns (title, description, goal_amount, collected_amount, start_date, end_date, status, campaign_type, location, created_by)
 VALUES 
 ('Help Asha Recover from Heart Surgery',
@@ -25,6 +34,9 @@ VALUES
  'Join our environmental drive to plant and maintain 1000 native trees in urban Bengaluru.',
  150000, 90000, '2025-10-05', '2025-12-20', 'ACTIVE', 'ENVIRONMENT', 'Bengaluru', 1);
 
+-- ========================
+-- CAMPAIGN IMAGES
+-- ========================
 INSERT INTO campaign_images (image_url, description, campaign_id)
 VALUES
 ('https://cdn.hopebridge.org/campaigns/asha_hospital.jpg', 'Asha at the hospital before surgery', 1),
@@ -32,14 +44,20 @@ VALUES
 ('https://cdn.hopebridge.org/campaigns/tribal_school.jpg', 'Tribal children in classroom', 2),
 ('https://cdn.hopebridge.org/campaigns/tree_drive.jpg', 'Volunteers planting saplings', 3);
 
-INSERT INTO donations (amount, payment_id, status, donor_id, campaign_id)
+-- ========================
+-- DONATIONS (Stripe)
+-- ========================
+INSERT INTO donations 
+(amount, currency, status, payment_session_id, payment_intent_id, payment_method, payment_method_type, transaction_id, receipt_url, donor_id, campaign_id)
 VALUES
-(5000, 'razorpay_TXN_101', 'SUCCESS', 2, 1),
-(2000, 'razorpay_TXN_102', 'SUCCESS', 3, 1),
-(10000, 'stripe_TXN_201', 'SUCCESS', 2, 2),
-(500, 'stripe_TXN_202', 'PENDING', 3, 2),
-(2500, 'stripe_TXN_301', 'SUCCESS', 2, 3);
+(10000, 'INR', 'SUCCESS', 'stripe_SESSION_201', 'pi_201', 'VISA ending in 4242', 'card', 'stripe_TXN_201', 'https://stripe.com/receipts/pi_201', 2, 2),
+(500, 'INR', 'PENDING', 'stripe_SESSION_202', 'pi_202', NULL, NULL, NULL, NULL, 3, 2),
+(2500, 'INR', 'SUCCESS', 'stripe_SESSION_301', 'pi_301', 'MasterCard ending in 5100', 'card', 'stripe_TXN_301', 'https://stripe.com/receipts/pi_301', 2, 3),
+(1500, 'INR', 'FAILED', 'stripe_SESSION_401', 'pi_401', 'VISA ending in 4000', 'card', 'stripe_TXN_401', 'https://stripe.com/receipts/pi_401_failed', 3, 1);
 
+-- ========================
+-- IMPACT STORIES
+-- ========================
 INSERT INTO impact_stories (title, content, campaign_id)
 VALUES
 ('Asha Successfully Operated', 
@@ -49,6 +67,9 @@ VALUES
 ('Green Bengaluru Drive Progress', 
  '500 trees planted so far! Your contributions are making the city greener.', 3);
 
+-- ========================
+-- IMPACT IMAGES
+-- ========================
 INSERT INTO impact_images (image_url, story_id)
 VALUES
 ('https://cdn.hopebridge.org/impact/asha_recovered.jpg', 1),

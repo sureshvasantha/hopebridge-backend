@@ -9,6 +9,7 @@ import com.dns.repository.entity.Donation;
 import com.dns.repository.entity.enums.DonationStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DonationRepository extends JpaRepository<Donation, Long> {
@@ -24,5 +25,7 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 
     @Query("SELECT DISTINCT d.campaign.campaignId FROM Donation d WHERE d.donor.userId = :donorId")
     List<Long> findCampaignIdsByDonor(@Param("donorId") Long donorId);
+
+    Optional<Donation> findByPaymentSessionId(String sessionId);
 
 }

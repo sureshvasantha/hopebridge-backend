@@ -1,0 +1,12 @@
+Email
+javatechie.learning@gmail.com
+
+Card information
+4242 4242 4242 4242
+
+Expire: 12/34
+
+CVV: 567
+
+Cardholder name
+Basant Hota

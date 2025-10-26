@@ -1,48 +1,245 @@
 package com.dns.service.impl;
 
 import com.dns.dto.DonationDTO;
+import com.dns.dto.StripeCheckoutRequest;
+import com.dns.dto.StripeResponse;
+import com.dns.exception.ResourceNotFoundException;
+import com.dns.repository.CampaignRepository;
 import com.dns.repository.DonationRepository;
+import com.dns.repository.UserRepository;
+import com.dns.repository.entity.Campaign;
 import com.dns.repository.entity.Donation;
+import com.dns.repository.entity.User;
+import com.dns.repository.entity.enums.DonationStatus;
 import com.dns.service.DonationService;
+import com.dns.service.StripeService;
 import lombok.RequiredArgsConstructor;
-
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
+import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentMethod;
+import com.stripe.model.checkout.Session;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class DonationServiceImpl implements DonationService {
 
+    private final StripeService stripeService;
     private final DonationRepository donationRepository;
+    private final CampaignRepository campaignRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+
+    @Value("${stripe.secret.key}")
+    private String stripeSecretKey;
 
     @Override
     public List<DonationDTO> getDonationsByDonor(Long donorId) {
         List<Donation> donations = donationRepository.findByDonor_UserId(donorId);
-        return donations.stream()
-                .map(d -> modelMapper.map(d, DonationDTO.class))
+        return donations.stream().map(donation -> {
+            DonationDTO dto = modelMapper.map(donation, DonationDTO.class);
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    // ✅ 1. Get all donations
+    @Override
+    public List<DonationDTO> getAllDonations() {
+        return donationRepository.findAll().stream()
+                .map(donation -> modelMapper.map(donation, DonationDTO.class))
                 .collect(Collectors.toList());
     }
 
+    // ✅ 2. Get donations by campaign
+    @Override
+    public List<DonationDTO> getDonationsByCampaign(Long campaignId) {
+        return donationRepository.findByCampaign_CampaignId(campaignId).stream()
+                .map(donation -> modelMapper.map(donation, DonationDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    // ✅ 4. Create donation manually (non-payment flow)
     @Override
     public Donation createDonation(Donation donation) {
         return donationRepository.save(donation);
     }
 
     @Override
-    public List<Donation> getAllDonations() {
-        return donationRepository.findAll();
+    public StripeResponse createCheckoutSession(StripeCheckoutRequest request) {
+        // Validate entities
+        User donor = userRepository.findById(request.getDonorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Donor not found"));
+        Campaign campaign = campaignRepository.findById(request.getCampaignId())
+                .orElseThrow(() -> new ResourceNotFoundException("Campaign not found"));
+
+        // Create Stripe session
+        StripeResponse stripeResponse = stripeService.createCheckoutSession(request);
+
+        if ("SUCCESS".equals(stripeResponse.getStatus())) {
+            Donation donation = Donation.builder()
+                    .amount(request.getAmount())
+                    .currency(request.getCurrency())
+                    .status(DonationStatus.PENDING)
+                    .paymentSessionId(stripeResponse.getSessionId())
+                    .donor(donor)
+                    .campaign(campaign)
+                    .build();
+
+            donationRepository.save(donation);
+        }
+
+        return stripeResponse;
     }
 
     @Override
-    public List<Donation> getDonationsByUser(Long userId) {
-        return donationRepository.findByDonor_UserId(userId);
+    public void confirmDonation(String sessionId) {
+        try {
+            Stripe.apiKey = stripeSecretKey;
+
+            // 1️⃣ Retrieve the Stripe Checkout Session
+            Session session = Session.retrieve(sessionId);
+
+            // 2️⃣ Retrieve the PaymentIntent (expand latest_charge)
+            String paymentIntentId = session.getPaymentIntent();
+            Map<String, Object> params = new HashMap<>();
+            params.put("expand", List.of("latest_charge"));
+            PaymentIntent paymentIntent = PaymentIntent.retrieve(paymentIntentId, params, null);
+
+            // 3️⃣ Get Donation record from DB
+            Donation donation = donationRepository.findByPaymentSessionId(sessionId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Donation not found for session: " + sessionId));
+
+            // 4️⃣ Extract charge info from expanded PaymentIntent
+            Charge latestCharge = paymentIntent.getLatestChargeObject();
+            String transactionId = (latestCharge != null) ? latestCharge.getId() : null;
+            String receiptUrl = (latestCharge != null) ? latestCharge.getReceiptUrl() : null;
+
+            // 5️⃣ Retrieve and parse the PaymentMethod for readability
+            String paymentMethodId = paymentIntent.getPaymentMethod();
+            String readableMethod = "Unknown";
+            String methodType = "unknown";
+
+            if (paymentMethodId != null) {
+                try {
+                    PaymentMethod pm = PaymentMethod.retrieve(paymentMethodId);
+                    methodType = pm.getType();
+                    readableMethod = buildReadablePaymentMethod(pm);
+                } catch (Exception e) {
+                    readableMethod = "Unknown (" + paymentMethodId + ")";
+                }
+            }
+
+            // 6️⃣ Determine donation status based on Stripe status
+            String stripeStatus = paymentIntent.getStatus();
+            DonationStatus finalStatus = DonationStatus.PENDING;
+
+            if ("succeeded".equalsIgnoreCase(stripeStatus)) {
+                finalStatus = DonationStatus.SUCCESS;
+            } else if ("failed".equalsIgnoreCase(stripeStatus) || "canceled".equalsIgnoreCase(stripeStatus)) {
+                finalStatus = DonationStatus.FAILED;
+            }
+
+            // 7️⃣ Update donation record
+            donation.setStatus(finalStatus);
+            donation.setPaymentIntentId(paymentIntentId);
+            donation.setPaymentMethod(readableMethod); // ✅ Human-readable format
+            donation.setPaymentMethodType(methodType); // ✅ e.g., "card", "upi"
+            donation.setTransactionId(transactionId);
+            donation.setReceiptUrl(receiptUrl);
+
+            donationRepository.save(donation);
+
+        } catch (StripeException e) {
+            throw new RuntimeException("Error confirming Stripe payment: " + e.getMessage(), e);
+        }
     }
 
-    @Override
-    public List<Donation> getDonationsByCampaign(Long campaignId) {
-        return donationRepository.findByCampaign_CampaignId(campaignId);
+    /**
+     * Converts Stripe PaymentMethod object into readable description.
+     */
+    private String buildReadablePaymentMethod(PaymentMethod pm) {
+        if (pm == null || pm.getType() == null)
+            return "Unknown";
+
+        String type = pm.getType();
+        switch (type) {
+            case "card":
+                return String.format("%s ending in %s",
+                        pm.getCard().getBrand().toUpperCase(),
+                        pm.getCard().getLast4());
+            case "upi":
+                return "UPI Payment";
+            case "wallet":
+                return "Wallet Payment";
+            case "netbanking":
+                return "NetBanking Payment";
+            default:
+                return type.toUpperCase();
+        }
     }
+
+    // @Override
+    // public void confirmDonation(String sessionId) {
+    // try {
+    // // 1️⃣ Retrieve the Stripe Checkout Session
+    // Session session = Session.retrieve(sessionId);
+
+    // // 2️⃣ Retrieve the PaymentIntent (expand latest_charge)
+    // String paymentIntentId = session.getPaymentIntent();
+
+    // Map<String, Object> params = new HashMap<>();
+    // params.put("expand", List.of("latest_charge"));
+
+    // PaymentIntent paymentIntent = PaymentIntent.retrieve(paymentIntentId, params,
+    // null);
+
+    // // 3️⃣ Get Donation record from DB
+    // Donation donation = donationRepository.findByPaymentSessionId(sessionId)
+    // .orElseThrow(() -> new ResourceNotFoundException("Donation not found for
+    // session: " + sessionId));
+
+    // // 4️⃣ Extract charge info from the expanded PaymentIntent
+    // Charge latestCharge = paymentIntent.getLatestChargeObject();
+
+    // String paymentMethod = paymentIntent.getPaymentMethod();
+    // String transactionId = latestCharge != null ? latestCharge.getId() : null;
+    // String receiptUrl = latestCharge != null ? latestCharge.getReceiptUrl() :
+    // null;
+
+    // // 5️⃣ Determine donation status based on Stripe status
+    // String stripeStatus = paymentIntent.getStatus();
+    // DonationStatus finalStatus = DonationStatus.PENDING;
+
+    // if ("succeeded".equalsIgnoreCase(stripeStatus)) {
+    // finalStatus = DonationStatus.SUCCESS;
+    // } else if ("failed".equalsIgnoreCase(stripeStatus) ||
+    // "canceled".equalsIgnoreCase(stripeStatus)) {
+    // finalStatus = DonationStatus.FAILED;
+    // }
+
+    // // 6️⃣ Update donation record
+    // donation.setStatus(finalStatus);
+    // donation.setPaymentIntentId(paymentIntentId);
+    // donation.setPaymentMethod(paymentMethod);
+    // donation.setTransactionId(transactionId);
+    // donation.setReceiptUrl(receiptUrl);
+
+    // donationRepository.save(donation);
+
+    // } catch (StripeException e) {
+    // throw new RuntimeException("Error confirming Stripe payment: " +
+    // e.getMessage(), e);
+    // }
+    // }
+
 }
