@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<User> user = userRepository.findByName(username);
         // but we have return UserDetails and not UserInfoEntity
         return user
-                .map((userInfo) -> new UserDetailsImpl(userInfo.getName(), userInfo.getPassword(),
+                .map((userInfo) -> new UserDetailsImpl(userInfo.getUserId(), userInfo.getName(), userInfo.getPassword(),
                         userInfo.getRoles()))
                 .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
     }

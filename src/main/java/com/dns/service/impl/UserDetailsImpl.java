@@ -10,12 +10,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.dns.repository.entity.Role;
 
+import lombok.Getter;
+
+@Getter
 public class UserDetailsImpl implements UserDetails {
+    private Long userId;
     private String name;
     private String password;
     private List<SimpleGrantedAuthority> allRoles;
 
-    public UserDetailsImpl(String name, String password, List<Role> allRoles) {
+    public UserDetailsImpl(Long userId, String name, String password, List<Role> allRoles) {
+        this.userId = userId;
         this.name = name;
         this.password = password;
         this.allRoles = allRoles.stream().map((role) -> new SimpleGrantedAuthority(role.getRoleName())).toList();

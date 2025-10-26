@@ -32,7 +32,7 @@ import lombok.AllArgsConstructor;
 public class SecurityConfig {
 
     private JwtAuthFilter jwtAuthFilter;
-
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
     private final UserDetailsServiceImpl userDetailsService;
     private CorrelationIdFilter correlationIdFilter;
 
@@ -61,15 +61,15 @@ public class SecurityConfig {
                         // .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         // .requestMatchers(HttpMethod.POST, "/api/users/authenticate").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**",
-                                "/api/validate", "/api/users/register", "/api/users/login")
+                                "/api/validate", "/api/users/**", "/api/public/**", "/h2-console/**")
                         .permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(correlationIdFilter,
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(ex -> ex.accessDeniedHandler(customAccessDeniedHandler))
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .build();
         // return http.csrf(AbstractHttpConfigurer::disable)

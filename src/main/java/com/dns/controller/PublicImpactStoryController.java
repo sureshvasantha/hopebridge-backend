@@ -14,7 +14,7 @@ import com.dns.service.ImpactStoryService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/public")
+@RequestMapping("/api/public")
 @RequiredArgsConstructor
 public class PublicImpactStoryController {
 
