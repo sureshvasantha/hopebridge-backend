@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dns.dto.UserDTO;
 import com.dns.repository.UserRepository;
 import com.dns.repository.entity.User;
-import com.dns.service.UserService;
 import com.dns.service.impl.JwtService;
+import com.dns.service.impl.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,6 @@ public class UserController {
     AuthenticationManager authenticationManager;
     ModelMapper mapper;
 
-    // Generate new token for existing user
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(@RequestBody UserDTO userDto) {
         try {
@@ -65,5 +64,14 @@ public class UserController {
         log.warn("Authentication failed for unknown reason for {}", userDto.getName());
         errorResponse.put("message", "Authentication failed for unknown reason.");
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDto) {
+        log.info("Registration endpoint hit for email={}", userDto.getEmail());
+        UserDTO registeredUser = userService.registerUser(userDto);
+        log.info("Registration successful for username={}", registeredUser.getName());
+        return ResponseEntity.ok(registeredUser);
+
     }
 }

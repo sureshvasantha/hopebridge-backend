@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.dns.service.impl.JwtService;
-import com.dns.service.impl.UserDetailsImpl;
 import com.dns.service.impl.UserDetailsServiceImpl;
 
 import io.jsonwebtoken.io.IOException;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.dns.dto.UserDTO;
 import com.dns.exception.InvalidRoleException;
+import com.dns.exception.ResourceNotFoundException;
 import com.dns.exception.UserInfoAlreadyExistException;
 import com.dns.repository.RoleRepository;
 import com.dns.repository.UserRepository;
@@ -17,6 +18,7 @@ import com.dns.repository.entity.Role;
 import com.dns.repository.entity.User;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,40 +31,43 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     ModelMapper mapper;
 
-    public User registerUser(UserDTO userDto) {
+    public UserDTO registerUser(UserDTO userDto) {
         log.info("Register request received for username={}, email={}", userDto.getName(), userDto.getEmail());
-        if (userRepository.findByName(userDto.getName()).isPresent()) {
+
+        userRepository.findByName(userDto.getName()).ifPresent(u -> {
             log.error("Registration failed: Username {} already exists", userDto.getName());
             throw new UserInfoAlreadyExistException(
                     String.format("Username %s already exists", userDto.getName()));
-        }
-        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+        });
+
+        userRepository.findByEmail(userDto.getEmail()).ifPresent(u -> {
             log.error("Registration failed: Email {} already exists", userDto.getEmail());
             throw new UserInfoAlreadyExistException(
                     String.format("Email %s already exists", userDto.getEmail()));
-        }
-        if (!userDto.getRole().matches("(ADMIN|DONOR)")) {
-            log.error(
-                    "Registration failed: Invalid Role mentioned. Available roles ADMIN, DONOR. Provided: {}",
-                    userDto.getRole());
+        });
+
+        String roleName = userDto.getRole().toUpperCase();
+        if (!List.of("ADMIN", "DONOR").contains(roleName)) {
+            log.error("Registration failed: Invalid Role '{}'. Available roles: ADMIN, DONOR", roleName);
             throw new InvalidRoleException(
-                    String.format("Invalid Role %s mentioned. Available roles ADMIN, DONOR.",
-                            userDto.getRole()));
+                    String.format("Invalid Role %s mentioned. Available roles: ADMIN, DONOR.", roleName));
+        }
+
+        Role role = roleRepository.findByRoleName(roleName);
+        if (role == null) {
+            log.error("Role '{}' not found in DB", roleName);
+            throw new ResourceNotFoundException("Role not found: " + roleName);
         }
 
         User user = mapper.map(userDto, User.class);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
+        user.setRoles(List.of(role));
 
-        Role role = roleRepository.findByRoleName(userDto.getRole());
-        user.setRoles((List.of(role)));
-        log.info("User {} object created successfully", user.getName());
-        return user;
-    }
+        User savedUser = userRepository.save(user);
+        log.info("User '{}' registered successfully with role '{}'", savedUser.getName(), roleName);
 
-    public UserDTO registerAdmin(UserDTO userDto) {
-        // TODO: Same as registerUser but call only when curr user is ADMIN
-        return null;
+        return mapper.map(savedUser, UserDTO.class);
     }
 
     public Optional<User> findByEmail(String email) {

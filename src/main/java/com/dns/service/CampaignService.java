@@ -2,14 +2,11 @@ package com.dns.service;
 
 import com.dns.dto.CampaignDTO;
 import com.dns.dto.DonationDTO;
-import com.dns.repository.entity.Campaign;
 import com.dns.repository.entity.enums.CampaignStatus;
 import com.dns.repository.entity.enums.CampaignType;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public interface CampaignService {

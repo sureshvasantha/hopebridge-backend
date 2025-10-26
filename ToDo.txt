@@ -1,0 +1,6 @@
+# TODO: Log files
+# TODO: Sanitise code
+# TODO: Populate original img urls 
+# TODO: Input Validation for DTOs
+# TODO: Write logic for Admin bank accounts and payouts from campaigns
+
