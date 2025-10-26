@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,4 +22,6 @@ public class UserDTO {
     private LocalDateTime createdAt;
     private String role;
     // private List<RoleDTO> roles;
+    @JsonIgnore
+    private transient MultipartFile profilePictureFile; // not persisted
 }

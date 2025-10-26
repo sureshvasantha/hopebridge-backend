@@ -1,5 +1,6 @@
 package com.dns.service.impl;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dns.dto.UserDTO;
+import com.dns.exception.FileStorageException;
 import com.dns.exception.InvalidRoleException;
 import com.dns.exception.ResourceNotFoundException;
 import com.dns.exception.UserInfoAlreadyExistException;
@@ -16,6 +18,7 @@ import com.dns.repository.RoleRepository;
 import com.dns.repository.UserRepository;
 import com.dns.repository.entity.Role;
 import com.dns.repository.entity.User;
+import com.dns.service.S3Service;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final S3Service s3Service;
     PasswordEncoder passwordEncoder;
     ModelMapper mapper;
 
@@ -63,6 +67,22 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
         user.setRoles(List.of(role));
+
+        // --- Upload profile picture if provided ---
+        if (userDto.getProfilePictureFile() != null) {
+            try {
+                log.info("Uploading profile picture for user {}", userDto.getName());
+                // Assuming controller converts file to MultipartFile and sends via DTO
+                String uploadedUrl = s3Service.uploadFile(
+                        userDto.getProfilePictureFile(), "profiles");
+                user.setProfilePicture(uploadedUrl);
+                log.info("Profile picture uploaded to S3: {}", uploadedUrl);
+            } catch (IOException e) {
+                log.error("Failed to upload profile picture for {}: {}", userDto.getName(), e.getMessage());
+                throw new FileStorageException(
+                        "Could not upload profile picture for " + userDto.getName() + " : " + e.getMessage());
+            }
+        }
 
         User savedUser = userRepository.save(user);
         log.info("User '{}' registered successfully with role '{}'", savedUser.getName(), roleName);

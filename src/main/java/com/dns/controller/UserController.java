@@ -13,13 +13,17 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dns.dto.UserDTO;
 import com.dns.repository.UserRepository;
 import com.dns.repository.entity.User;
 import com.dns.service.impl.JwtService;
 import com.dns.service.impl.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +39,7 @@ public class UserController {
 
     AuthenticationManager authenticationManager;
     ModelMapper mapper;
+    private final ObjectMapper objectMapper;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(@RequestBody UserDTO userDto) {
@@ -66,12 +71,23 @@ public class UserController {
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDto) {
+    @PostMapping(value = "/register", consumes = { "multipart/form-data" })
+    public ResponseEntity<UserDTO> registerUser(
+            @RequestPart("user") String userJson,
+            @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture)
+            throws JsonProcessingException {
+
+        UserDTO userDto = objectMapper.readValue(userJson, UserDTO.class);
+
         log.info("Registration endpoint hit for email={}", userDto.getEmail());
+        if (profilePicture != null && !profilePicture.isEmpty()) {
+            userDto.setProfilePictureFile(profilePicture);
+        }
+
         UserDTO registeredUser = userService.registerUser(userDto);
         log.info("Registration successful for username={}", registeredUser.getName());
-        return ResponseEntity.ok(registeredUser);
 
+        return ResponseEntity.ok(registeredUser);
     }
+
 }

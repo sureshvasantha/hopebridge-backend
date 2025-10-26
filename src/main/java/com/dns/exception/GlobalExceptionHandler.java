@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -47,6 +49,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleInvalidRole(InvalidRoleException ex) {
         log.warn("Invalid role: {}", ex.getMessage());
         return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<Map<String, String>> handleJsonProcessingException(JsonProcessingException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", "Invalid JSON format in 'user' field. Please check the data structure.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     // @ExceptionHandler(Exception.class)
