@@ -9,9 +9,9 @@ INSERT INTO roles (role_name) VALUES ('DONOR');
 -- ========================
 INSERT INTO users (name, email, password, profile_picture)
 VALUES 
-('Suresh', 'suresh@hopebridge.org', 'admin123', 'https://cdn.hopebridge.org/profiles/suresh.jpg'),
-('Neha', 'neha@gmail.com', 'donor123', 'https://cdn.hopebridge.org/profiles/anita.png'),
-('Vignesh', 'vignesh@gmail.com', 'donor123', 'https://cdn.hopebridge.org/profiles/vignesh.jpg');
+('Suresh', 'suresh@hopebridge.org', '$2a$12$ihf7./gSgu0IzUarX1p8/egW3WQq.4iArtAH5wpB/YXXg8A1PrFUO', 'https://cdn.hopebridge.org/profiles/suresh.jpg'),
+('Neha', 'neha@gmail.com', '$2a$12$FNbVDf0I3q0r3kq6NzC2j.ZrH6dmjrP8NtPk2tupHn4/4Brvii.ze', 'https://cdn.hopebridge.org/profiles/anita.png'),
+('Vignesh', 'vignesh@gmail.com', '$2a$12$d7UGzDQohI/9LutIXuOKI.6rb4VncooOVz0/pKafYyT3R95rrPi2e', 'https://cdn.hopebridge.org/profiles/vignesh.jpg');
 
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO user_roles (user_id, role_id) VALUES (2, 2);

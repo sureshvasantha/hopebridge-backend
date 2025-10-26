@@ -21,14 +21,14 @@ public class CampaignController {
 
     private final CampaignService campaignService;
 
-    // ✅ Get all campaigns created by this admin
+    // Get all campaigns created by this admin
     @GetMapping
     public ResponseEntity<List<CampaignDTO>> getCampaignsByAdmin(@PathVariable Long adminId) {
         List<CampaignDTO> campaigns = campaignService.getCampaignsByAdmin(adminId);
         return ResponseEntity.ok(campaigns);
     }
 
-    // ✅ Get single campaign by ID (only if owned by this admin)
+    // Get single campaign by ID (only if owned by this admin)
     @GetMapping("/{campaignId}")
     public ResponseEntity<CampaignDTO> getCampaignByAdminAndId(
             @PathVariable Long adminId,

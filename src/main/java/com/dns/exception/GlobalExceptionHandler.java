@@ -4,12 +4,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -31,6 +35,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<?> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, "Invalid parameter: " + ex.getName());
+    }
+
+    @ExceptionHandler(UserInfoAlreadyExistException.class)
+    public ResponseEntity<Map<String, Object>> handleUserInfoAlreadyExist(UserInfoAlreadyExistException ex) {
+        log.warn("User info conflict: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidRoleException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidRole(InvalidRoleException ex) {
+        log.warn("Invalid role: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     // @ExceptionHandler(Exception.class)

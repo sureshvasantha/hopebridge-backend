@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +14,9 @@ public class UserDTO {
     private Long userId;
     private String name;
     private String email;
+    private String password;
     private String profilePicture;
     private LocalDateTime createdAt;
-    private Set<RoleDTO> roles;
+    private String role;
+    // private List<RoleDTO> roles;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -33,5 +34,5 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private List<Role> roles;
 }
