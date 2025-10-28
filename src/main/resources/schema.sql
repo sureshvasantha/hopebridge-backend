@@ -49,6 +49,8 @@ CREATE TABLE donations (
     donation_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     amount DOUBLE NOT NULL,
     currency VARCHAR(10) DEFAULT 'INR',
+    display_amount DOUBLE NOT NULL,
+    display_currency VARCHAR(10) NOT NULL,
     status VARCHAR(20) CHECK (status IN ('SUCCESS', 'FAILED', 'PENDING')),
     payment_session_id VARCHAR(255),
     payment_intent_id VARCHAR(255),

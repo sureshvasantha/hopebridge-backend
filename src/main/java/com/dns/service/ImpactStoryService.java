@@ -21,4 +21,6 @@ public interface ImpactStoryService {
 
     List<ImpactStoryDTO> getImpactStoriesByCampaign(Long campaignId);
 
+    List<ImpactStoryDTO> getImpactStoriesByCampaignAndAdmin(Long adminId, Long campaignId);
+
 }

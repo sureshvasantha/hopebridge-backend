@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -43,10 +45,12 @@ public class DonationController {
 
     @PreAuthorize("hasRole('DONOR')")
     @GetMapping("/confirm")
-    public ResponseEntity<String> confirmPayment(@RequestParam("session_id") String sessionId) {
+    public ResponseEntity<Map<String, String>> confirmPayment(@RequestParam("session_id") String sessionId) {
         log.info("Confirming donation for session ID: {}", sessionId);
         donationService.confirmDonation(sessionId);
         log.info("Donation confirmed successfully for session ID: {}", sessionId);
-        return ResponseEntity.ok("Donation confirmed successfully.");
+        Map<String, String> result = new HashMap<>();
+        result.put("message", "Donation confirmed successfully.");
+        return ResponseEntity.ok(result);
     }
 }

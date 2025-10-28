@@ -22,6 +22,12 @@ public class Donation {
     @EqualsAndHashCode.Include
     private Long donationId;
 
+    @Column(nullable = false)
+    private Double displayAmount; 
+
+    @Column(nullable = false, length = 10)
+    private String displayCurrency;
+
     private Double amount;
 
     private String currency;

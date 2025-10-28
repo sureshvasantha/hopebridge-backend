@@ -16,6 +16,8 @@ public interface ImpactStoryRepository extends JpaRepository<ImpactStory, Long> 
 
     List<ImpactStory> findByCampaign_CreatedBy_UserId(Long adminId);
 
+    List<ImpactStory> findByCampaign_CampaignIdAndCampaign_CreatedBy_UserId(Long campaignId, Long adminId);
+
     @Query("SELECT s FROM ImpactStory s WHERE s.campaign.campaignId IN :campaignIds")
     List<ImpactStory> findByCampaign_CampaignIdIn(@Param("campaignIds") List<Long> campaignIds);
 

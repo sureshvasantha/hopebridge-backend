@@ -15,9 +15,12 @@ public class DonationDTO {
     private Double amount;
     private DonationStatus status;
     private String currency;
-    // private String paymentSessionId;
+    private Double displayAmount;
+    private String displayCurrency;
+    private String paymentSessionId;
     private String receiptUrl;
     private LocalDateTime donationDate;
     private Long donorId;
+    private String donorName;
     private Long campaignId;
 }

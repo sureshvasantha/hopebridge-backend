@@ -31,100 +31,126 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ImpactStoryServiceImpl implements ImpactStoryService {
 
-    private final ImpactStoryRepository impactStoryRepository;
-    private final CampaignRepository campaignRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-    private final ObjectMapper objectMapper;
-    private final ImpactStoryRepository storyRepository;
-    private final DonationRepository donationRepository;
-    private final S3Service s3Service;
+	private final ImpactStoryRepository impactStoryRepository;
+	private final CampaignRepository campaignRepository;
+	private final UserRepository userRepository;
+	private final ModelMapper modelMapper;
+	private final ObjectMapper objectMapper;
+	private final ImpactStoryRepository storyRepository;
+	private final DonationRepository donationRepository;
+	private final S3Service s3Service;
 
-    @Override
-    public ImpactStoryDTO createImpactStory(Long adminId, Long campaignId, String storyJson,
-            List<MultipartFile> imageFiles)
-            throws IOException {
+	@Override
+	public ImpactStoryDTO createImpactStory(Long adminId, Long campaignId, String storyJson,
+			List<MultipartFile> imageFiles)
+			throws IOException {
 
-        User admin = userRepository.findById(adminId)
-                .orElseThrow(() -> new ResourceNotFoundException("Admin not found with ID: " + adminId));
+		User admin = userRepository.findById(adminId)
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Admin not found with ID: " + adminId));
 
-        Campaign campaign = campaignRepository.findById(campaignId)
-                .orElseThrow(() -> new ResourceNotFoundException("Campaign not found with ID: " + campaignId));
+		Campaign campaign = campaignRepository.findById(campaignId)
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Campaign not found with ID: " + campaignId));
 
-        // ✅ Ownership validation
-        if (!campaign.getCreatedBy().getUserId().equals(adminId)) {
-            throw new UnauthorizedActionException("You are not authorized to post impact story for this campaign");
-        }
+		// ✅ Ownership validation
+		if (!campaign.getCreatedBy().getUserId().equals(adminId)) {
+			throw new UnauthorizedActionException(
+					"You are not authorized to post impact story for this campaign");
+		}
 
-        // ✅ Parse JSON to DTO
-        ImpactStoryDTO storyDTO = objectMapper.readValue(storyJson, ImpactStoryDTO.class);
+		// ✅ Parse JSON to DTO
+		ImpactStoryDTO storyDTO = objectMapper.readValue(storyJson, ImpactStoryDTO.class);
 
-        // ✅ Map to entity
-        ImpactStory story = modelMapper.map(storyDTO, ImpactStory.class);
-        story.setCampaign(campaign);
-        story.setPostedDate(LocalDateTime.now());
+		// Validate DTO campaignId: payload must not be null and campaignId must match the path/arg
+		if (storyDTO == null) {
+			throw new IllegalArgumentException("Impact story payload is null");
+		}
 
-        // ✅ Handle image upload
-        List<ImpactImage> imageEntities = new ArrayList<>();
-        if (imageFiles != null && !imageFiles.isEmpty()) {
-            for (MultipartFile file : imageFiles) {
-                String imageUrl = s3Service.uploadFile(file, "impact-stories");
-                ImpactImage img = new ImpactImage();
-                img.setImageUrl(imageUrl);
-                img.setStory(story);
-                imageEntities.add(img);
-            }
-        }
-        story.setImages(imageEntities);
+		Long dtoCampaignId = storyDTO.getCampaignId();
+		if (dtoCampaignId == null || !dtoCampaignId.equals(campaignId)) {
+			throw new IllegalArgumentException("Campaign ID mismatch: DTO campaignId=" + dtoCampaignId + " does not match provided campaignId=" + campaignId);
+		}
+		// ✅ Map to entity
+		ImpactStory story = modelMapper.map(storyDTO, ImpactStory.class);
+		story.setCampaign(campaign);
+		story.setPostedDate(LocalDateTime.now());
 
-        ImpactStory saved = impactStoryRepository.save(story);
+		// ✅ Handle image upload
+		List<ImpactImage> imageEntities = new ArrayList<>();
+		if (imageFiles != null && !imageFiles.isEmpty()) {
+			for (MultipartFile file : imageFiles) {
+				String imageUrl = s3Service.uploadFile(file, "impact-stories");
+				ImpactImage img = new ImpactImage();
+				img.setImageUrl(imageUrl);
+				img.setStory(story);
+				imageEntities.add(img);
+			}
+		}
+		story.setImages(imageEntities);
 
-        // Return DTO response
-        ImpactStoryDTO response = modelMapper.map(saved, ImpactStoryDTO.class);
-        response.setImages(saved.getImages().stream()
-                .map(img -> new ImpactImageDTO(img.getImageId(), img.getImageUrl(), img.getStory().getStoryId()))
-                .collect(Collectors.toList()));
+		ImpactStory saved = impactStoryRepository.save(story);
 
-        return response;
-    }
+		// Return DTO response
+		ImpactStoryDTO response = modelMapper.map(saved, ImpactStoryDTO.class);
+		response.setImages(saved.getImages().stream()
+				.map(img -> new ImpactImageDTO(img.getImageId(), img.getImageUrl(),
+						img.getStory().getStoryId()))
+				.collect(Collectors.toList()));
 
-    @Override
-    public List<ImpactStoryDTO> getImpactStoriesByCampaign(Long campaignId) {
-        List<ImpactStory> stories = impactStoryRepository.findByCampaign_CampaignId(campaignId);
-        return stories.stream()
-                .map(story -> modelMapper.map(story, ImpactStoryDTO.class))
-                .collect(Collectors.toList());
-    }
+		return response;
+	}
 
-    @Override
-    public List<ImpactStoryDTO> getStoriesByCampaignId(Long campaignId) {
-        List<ImpactStory> stories = storyRepository.findByCampaign_CampaignId(campaignId);
-        return stories.stream()
-                .map(story -> modelMapper.map(story, ImpactStoryDTO.class))
-                .collect(Collectors.toList());
-    }
+	@Override
+	public List<ImpactStoryDTO> getImpactStoriesByCampaign(Long campaignId) {
+		List<ImpactStory> stories = impactStoryRepository.findByCampaign_CampaignId(campaignId);
+		return stories.stream()
+				.map(story -> modelMapper.map(story, ImpactStoryDTO.class))
+				.collect(Collectors.toList());
+	}
 
-    @Override
-    public List<ImpactStoryDTO> getStoriesByDonor(Long donorId) {
-        List<ImpactStory> stories = storyRepository.findByCampaign_CampaignIdIn(
-                donationRepository.findCampaignIdsByDonor(donorId));
-        return stories.stream()
-                .map(story -> modelMapper.map(story, ImpactStoryDTO.class))
-                .collect(Collectors.toList());
-    }
+	@Override
+	public List<ImpactStoryDTO> getStoriesByCampaignId(Long campaignId) {
+		List<ImpactStory> stories = storyRepository.findByCampaign_CampaignId(campaignId);
+		return stories.stream()
+				.map(story -> modelMapper.map(story, ImpactStoryDTO.class))
+				.collect(Collectors.toList());
+	}
 
-    @Override
-    public ImpactStoryDTO getImpactStoryById(Long storyId) {
-        ImpactStory story = impactStoryRepository.findById(storyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Impact story not found with ID: " + storyId));
-        return modelMapper.map(story, ImpactStoryDTO.class);
-    }
+	@Override
+	public List<ImpactStoryDTO> getStoriesByDonor(Long donorId) {
+		List<ImpactStory> stories = storyRepository.findByCampaign_CampaignIdIn(
+				donationRepository.findCampaignIdsByDonor(donorId));
+		return stories.stream()
+				.map(story -> modelMapper.map(story, ImpactStoryDTO.class))
+				.collect(Collectors.toList());
+	}
 
-    @Override
-    public List<ImpactStoryDTO> getImpactStoriesByAdmin(Long adminId) {
-        List<ImpactStory> stories = impactStoryRepository.findByCampaign_CreatedBy_UserId(adminId);
-        return stories.stream()
-                .map(story -> modelMapper.map(story, ImpactStoryDTO.class))
-                .collect(Collectors.toList());
-    }
+	@Override
+	public ImpactStoryDTO getImpactStoryById(Long storyId) {
+		ImpactStory story = impactStoryRepository.findById(storyId)
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Impact story not found with ID: " + storyId));
+		return modelMapper.map(story, ImpactStoryDTO.class);
+	}
+
+	@Override
+	public List<ImpactStoryDTO> getImpactStoriesByAdmin(Long adminId) {
+		List<ImpactStory> stories = impactStoryRepository.findByCampaign_CreatedBy_UserId(adminId);
+		return stories.stream()
+				.map(story -> modelMapper.map(story, ImpactStoryDTO.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<ImpactStoryDTO> getImpactStoriesByCampaignAndAdmin(Long adminId, Long campaignId) {
+		Campaign campaign = campaignRepository.findByCampaignIdAndCreatedBy_UserId(campaignId, adminId)
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Campaign not found for ID " + campaignId + " and admin " + adminId));
+
+		return impactStoryRepository.findByCampaign_CampaignId(campaign.getCampaignId())
+				.stream()
+				.map(story -> modelMapper.map(story, ImpactStoryDTO.class))
+				.collect(Collectors.toList());
+	}
 }

@@ -14,31 +14,31 @@ import java.util.Optional;
 
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign, Long> {
-        List<Campaign> findByStatus(CampaignStatus status);
+  List<Campaign> findByStatus(CampaignStatus status);
 
-        List<Campaign> findByCampaignType(CampaignType type);
+  List<Campaign> findByCampaignType(CampaignType type);
 
-        List<Campaign> findByLocationIgnoreCase(String location);
+  List<Campaign> findByLocationIgnoreCase(String location);
 
-        List<Campaign> findByCreatedByUserId(Long userId);
+  List<Campaign> findByCreatedByUserId(Long userId);
 
-        List<Campaign> findByTitleContainingIgnoreCase(String keyword);
+  List<Campaign> findByTitleContainingIgnoreCase(String keyword);
 
-        List<Campaign> findByLocationContainingIgnoreCase(String location);
+  List<Campaign> findByLocationContainingIgnoreCase(String location);
 
-        List<Campaign> findByCreatedBy_UserId(Long adminId);
+  List<Campaign> findByCreatedBy_UserId(Long adminId);
 
-        Optional<Campaign> findByCampaignIdAndCreatedBy_UserId(Long campaignId, Long adminId);
+  Optional<Campaign> findByCampaignIdAndCreatedBy_UserId(Long campaignId, Long adminId);
 
-        @Query("""
-                            SELECT c FROM Campaign c
-                            WHERE c.status = 'ACTIVE'
-                              AND (:type IS NULL OR c.campaignType = :type)
-                              AND (:location IS NULL OR LOWER(c.location) LIKE LOWER(CONCAT('%', :location, '%')))
-                              AND (:keyword IS NULL OR LOWER(c.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
-                                                   OR LOWER(c.description) LIKE LOWER(CONCAT('%', :keyword, '%')))
-                        """)
-        List<Campaign> searchActiveCampaigns(@Param("type") CampaignType type,
-                        @Param("location") String location,
-                        @Param("keyword") String keyword);
+  @Query("""
+          SELECT c FROM Campaign c
+          WHERE c.status = 'ACTIVE'
+            AND (:type IS NULL OR c.campaignType = :type)
+            AND (:location IS NULL OR LOWER(c.location) LIKE LOWER(CONCAT('%', :location, '%')))
+            AND (:keyword IS NULL OR LOWER(c.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                                 OR LOWER(c.description) LIKE LOWER(CONCAT('%', :keyword, '%')))
+      """)
+  List<Campaign> searchActiveCampaigns(@Param("type") CampaignType type,
+      @Param("location") String location,
+      @Param("keyword") String keyword);
 }

@@ -93,7 +93,17 @@ public class CampaignServiceImpl implements CampaignService {
             throws IOException {
 
         // Parse JSON to DTO
+
         CampaignDTO campaignDTO = objectMapper.readValue(campaignJson, CampaignDTO.class);
+
+        // Validate DTO campaignId: must be present and must match the path/arg
+        // campaignId
+        Long dtoCampaignId = campaignDTO != null ? campaignDTO.getCampaignId() : null;
+        if (dtoCampaignId == null || !dtoCampaignId.equals(campaignId)) {
+            throw new IllegalArgumentException(
+                    "Campaign ID is not given or mismatch: DTO id=" + dtoCampaignId + " does not match provided id="
+                            + campaignId);
+        }
 
         Campaign existing = campaignRepository.findById(campaignId)
                 .orElseThrow(() -> new ResourceNotFoundException("Campaign not found with ID: " + campaignId));
@@ -111,6 +121,7 @@ public class CampaignServiceImpl implements CampaignService {
         }
 
         // Update editable fields only
+        existing.setCampaignId(existing.getCampaignId());
         existing.setTitle(campaignDTO.getTitle());
         existing.setDescription(campaignDTO.getDescription());
         existing.setGoalAmount(campaignDTO.getGoalAmount());

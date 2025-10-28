@@ -24,6 +24,12 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
+    @ExceptionHandler(DonationAlreadyConfirmedException.class)
+    public ResponseEntity<Map<String, Object>> handleDonationAlreadyConfirmed(DonationAlreadyConfirmedException ex) {
+        log.warn("Donation confirmation attempt ignored: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
     @ExceptionHandler(FileStorageException.class)
     public ResponseEntity<?> handleFileStorage(FileStorageException ex) {
         return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
@@ -48,6 +54,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidRoleException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidRole(InvalidRoleException ex) {
         log.warn("Invalid role: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidRole(IllegalArgumentException ex) {
+        log.warn("Illegal argument: ", ex.getMessage());
         return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 

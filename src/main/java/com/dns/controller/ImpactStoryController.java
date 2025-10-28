@@ -21,7 +21,7 @@ public class ImpactStoryController {
     private final ImpactStoryService impactStoryService;
 
     @PreAuthorize("hasRole('ADMIN') and #adminId == authentication.principal.userId")
-    @PostMapping("/campaign/{campaignId}")
+    @PostMapping(value = "/campaign/{campaignId}", consumes = { "multipart/form-data" })
     public ResponseEntity<ImpactStoryDTO> createImpactStory(
             @PathVariable Long adminId,
             @PathVariable Long campaignId,
@@ -32,5 +32,23 @@ public class ImpactStoryController {
         ImpactStoryDTO created = impactStoryService.createImpactStory(adminId, campaignId, storyJson, imageFiles);
         log.debug("Impact story created successfully by admin ID={} for campaign ID={}", adminId, campaignId);
         return ResponseEntity.ok(created);
+    }
+
+    @PreAuthorize("hasRole('ADMIN') and #adminId == authentication.principal.userId")
+    @GetMapping
+    public ResponseEntity<List<ImpactStoryDTO>> getImpactStoriesByAdmin(@PathVariable Long adminId) {
+        log.info("Fetching impact stories for admin ID: {}", adminId);
+        List<ImpactStoryDTO> stories = impactStoryService.getImpactStoriesByAdmin(adminId);
+        return ResponseEntity.ok(stories);
+    }
+
+    @PreAuthorize("hasRole('ADMIN') and #adminId == authentication.principal.userId")
+    @GetMapping("/campaign/{campaignId}")
+    public ResponseEntity<List<ImpactStoryDTO>> getImpactStoriesByCampaign(
+            @PathVariable Long adminId,
+            @PathVariable Long campaignId) {
+        log.info("Fetching impact stories for campaign ID: {} by admin ID: {}", campaignId, adminId);
+        List<ImpactStoryDTO> stories = impactStoryService.getImpactStoriesByCampaignAndAdmin(adminId, campaignId);
+        return ResponseEntity.ok(stories);
     }
 }
