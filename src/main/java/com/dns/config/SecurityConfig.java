@@ -103,7 +103,9 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("http://localhost:4200")
+                        .allowedOriginPatterns("http://localhost:4200",
+                                "http://hopebridge-frontend-server",
+                                "http://hopebridge-frontend-server:*")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);

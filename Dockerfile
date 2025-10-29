@@ -9,7 +9,7 @@ RUN mvn dependency:go-offline -B
 
 # Copy source and build the JAR
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean package spring-boot:repackage -DskipTests
 
 #  Stage 2: Run the application
 FROM eclipse-temurin:21
@@ -22,3 +22,6 @@ EXPOSE 8080
 
 # Run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
+# ENTRYPOINT ["java"]
+# CMD ["-jar", "/app/app.jar"]
+
