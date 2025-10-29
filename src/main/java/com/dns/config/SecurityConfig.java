@@ -1,5 +1,7 @@
 package com.dns.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -56,6 +60,14 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOriginPatterns(List.of("*"));
+                    config.setAllowedMethods(List.of("*"));
+                    config.setAllowedHeaders(List.of("*"));
+                    config.setAllowCredentials(true); // Allow cookies for cross-origin requests
+                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                    source.registerCorsConfiguration("/**", config);
+                    cors.configurationSource(source);
                 })
                 .authorizeHttpRequests(auth -> auth
                         // .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
@@ -70,21 +82,8 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(ex -> ex.accessDeniedHandler(customAccessDeniedHandler))
-                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .build();
-        // return http.csrf(AbstractHttpConfigurer::disable)
-        // .cors(cors -> {
-        // })
-        // .authorizeHttpRequests(auth -> auth
-        // .anyRequest().permitAll())
-        // .sessionManagement(sess ->
-        // sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        // .authenticationProvider(authenticationProvider())
-        // .addFilterBefore(correlationIdFilter,
-        // UsernamePasswordAuthenticationFilter.class)
-        // .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         // .headers(headers -> headers.frameOptions(frame -> frame.disable()))
-        // .build();
     }
 
     @SuppressWarnings("deprecation")

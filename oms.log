@@ -120,3 +120,373 @@
 2025-10-29T04:43:24.270Z  INFO 66468 --- [stripe-payment] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-10-29T04:43:24.276Z  INFO 66468 --- [stripe-payment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-10-29T04:43:24.279Z  INFO 66468 --- [stripe-payment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-29T07:20:05.182Z  INFO 11477 --- [stripe-payment] [restartedMain] com.dns.Main                             : Starting Main using Java 21.0.8 with PID 11477 (/home/suresh/project_workspace/hopebridge/target/classes started by suresh in /home/suresh/project_workspace/hopebridge)
+2025-10-29T07:20:05.188Z  INFO 11477 --- [stripe-payment] [restartedMain] com.dns.Main                             : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T07:20:05.330Z  INFO 11477 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29T07:20:05.330Z  INFO 11477 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29T07:20:06.494Z  INFO 11477 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T07:20:06.631Z  INFO 11477 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 123 ms. Found 7 JPA repository interfaces.
+2025-10-29T07:20:07.699Z  INFO 11477 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-29T07:20:07.756Z  INFO 11477 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T07:20:07.757Z  INFO 11477 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-10-29T07:20:07.819Z  INFO 11477 --- [stripe-payment] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T07:20:07.820Z  INFO 11477 --- [stripe-payment] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2487 ms
+2025-10-29T07:20:08.181Z  INFO 11477 --- [stripe-payment] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T07:20:08.279Z  INFO 11477 --- [stripe-payment] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-10-29T07:20:08.350Z  INFO 11477 --- [stripe-payment] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T07:20:08.762Z  INFO 11477 --- [stripe-payment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T07:20:08.802Z  INFO 11477 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-29T07:20:09.101Z  INFO 11477 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/dnsdb user=SA
+2025-10-29T07:20:09.105Z  INFO 11477 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-29T07:20:09.138Z  WARN 11477 --- [stripe-payment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T07:20:09.172Z  INFO 11477 --- [stripe-payment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29T07:20:10.780Z  INFO 11477 --- [stripe-payment] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T07:20:10.875Z  INFO 11477 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T07:20:11.577Z  INFO 11477 --- [stripe-payment] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-29T07:20:11.580Z  WARN 11477 --- [stripe-payment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-29T07:20:11.769Z  INFO 11477 --- [stripe-payment] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-29T07:20:16.319Z  WARN 11477 --- [stripe-payment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T07:20:17.214Z  INFO 11477 --- [stripe-payment] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-10-29T07:20:18.621Z  INFO 11477 --- [stripe-payment] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/dnsdb'
+2025-10-29T07:20:18.710Z  INFO 11477 --- [stripe-payment] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-29T07:20:18.834Z  WARN 11477 --- [stripe-payment] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-10-29T07:20:18.849Z  INFO 11477 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T07:20:18.858Z  INFO 11477 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-29T07:20:18.946Z  INFO 11477 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-29T07:20:18.983Z  INFO 11477 --- [stripe-payment] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-10-29T07:20:19.018Z ERROR 11477 --- [stripe-payment] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-10-29T07:20:49.488Z  INFO 12439 --- [stripe-payment] [restartedMain] com.dns.Main                             : Starting Main using Java 21.0.8 with PID 12439 (/home/suresh/project_workspace/hopebridge/target/classes started by suresh in /home/suresh/project_workspace/hopebridge)
+2025-10-29T07:20:49.491Z  INFO 12439 --- [stripe-payment] [restartedMain] com.dns.Main                             : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T07:20:49.594Z  INFO 12439 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29T07:20:49.595Z  INFO 12439 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29T07:20:52.435Z  INFO 12439 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T07:20:52.589Z  INFO 12439 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 137 ms. Found 7 JPA repository interfaces.
+2025-10-29T07:20:54.187Z  INFO 12439 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-29T07:20:54.228Z  INFO 12439 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T07:20:54.229Z  INFO 12439 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-10-29T07:20:54.319Z  INFO 12439 --- [stripe-payment] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T07:20:54.325Z  INFO 12439 --- [stripe-payment] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4728 ms
+2025-10-29T07:20:54.947Z  INFO 12439 --- [stripe-payment] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T07:20:55.071Z  INFO 12439 --- [stripe-payment] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-10-29T07:20:55.148Z  INFO 12439 --- [stripe-payment] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T07:20:55.601Z  INFO 12439 --- [stripe-payment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T07:20:55.656Z  INFO 12439 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-29T07:20:56.105Z  INFO 12439 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/dnsdb user=SA
+2025-10-29T07:20:56.108Z  INFO 12439 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-29T07:20:56.159Z  WARN 12439 --- [stripe-payment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T07:20:56.194Z  INFO 12439 --- [stripe-payment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29T07:20:58.358Z  INFO 12439 --- [stripe-payment] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T07:20:58.453Z  INFO 12439 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T07:20:59.327Z  INFO 12439 --- [stripe-payment] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-29T07:20:59.329Z  WARN 12439 --- [stripe-payment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-29T07:20:59.437Z  INFO 12439 --- [stripe-payment] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-29T07:21:03.710Z  WARN 12439 --- [stripe-payment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T07:21:03.577Z  INFO 12439 --- [stripe-payment] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-10-29T07:21:04.545Z  INFO 12439 --- [stripe-payment] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/dnsdb'
+2025-10-29T07:21:04.629Z  INFO 12439 --- [stripe-payment] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-29T07:21:04.807Z  INFO 12439 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-29T07:21:04.845Z  INFO 12439 --- [stripe-payment] [restartedMain] com.dns.Main                             : Started Main in 16.387 seconds (process running for 18.668)
+2025-10-29T07:21:26.551Z  INFO 12439 --- [stripe-payment] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29T07:21:26.552Z  INFO 12439 --- [stripe-payment] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-29T07:21:26.564Z  INFO 12439 --- [stripe-payment] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2025-10-29T08:59:09.144Z  INFO 12439 --- [stripe-payment] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29T08:59:09.168Z  INFO 12439 --- [stripe-payment] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-29T08:59:09.192Z  INFO 12439 --- [stripe-payment] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T08:59:09.204Z  INFO 12439 --- [stripe-payment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-29T08:59:09.208Z  INFO 12439 --- [stripe-payment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-29T11:23:19.610Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Starting Main using Java 21.0.8 with PID 97397 (/home/suresh/project_workspace/hopebridge/target/classes started by suresh in /home/suresh/project_workspace/hopebridge)
+2025-10-29T11:23:19.614Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T11:23:19.654Z  INFO 97397 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29T11:23:19.654Z  INFO 97397 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29T11:23:21.045Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T11:23:21.151Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 86 ms. Found 7 JPA repository interfaces.
+2025-10-29T11:23:21.880Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-29T11:23:21.898Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T11:23:21.899Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-10-29T11:23:21.938Z  INFO 97397 --- [stripe-payment] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T11:23:21.938Z  INFO 97397 --- [stripe-payment] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2283 ms
+2025-10-29T11:23:22.093Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-29T11:23:22.376Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:dnsdb user=SA
+2025-10-29T11:23:22.378Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-29T11:23:22.585Z  INFO 97397 --- [stripe-payment] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T11:23:22.701Z  INFO 97397 --- [stripe-payment] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-10-29T11:23:22.755Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T11:23:23.211Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T11:23:23.262Z  WARN 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T11:23:23.274Z  INFO 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29T11:23:24.329Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T11:23:24.332Z  INFO 97397 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:23:24.713Z  INFO 97397 --- [stripe-payment] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-29T11:23:24.714Z  WARN 97397 --- [stripe-payment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-29T11:23:24.751Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-29T11:23:28.673Z  WARN 97397 --- [stripe-payment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T11:23:29.142Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-10-29T11:23:29.838Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:dnsdb'
+2025-10-29T11:23:29.902Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-29T11:23:30.036Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-29T11:23:30.048Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Started Main in 10.96 seconds (process running for 11.351)
+2025-10-29T11:24:31.102Z  INFO 97397 --- [stripe-payment] [http-nio-8080-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29T11:24:31.103Z  INFO 97397 --- [stripe-payment] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-29T11:24:31.109Z  INFO 97397 --- [stripe-payment] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2025-10-29T11:26:09.335Z  INFO 97397 --- [stripe-payment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2025-10-29T11:26:09.349Z  INFO 97397 --- [stripe-payment] [Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29T11:26:09.369Z  INFO 97397 --- [stripe-payment] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-29T11:26:09.380Z  INFO 97397 --- [stripe-payment] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:09.393Z  WARN 97397 --- [stripe-payment] [Thread-5] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-10-29T11:26:09.394Z  INFO 97397 --- [stripe-payment] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-29T11:26:09.402Z  INFO 97397 --- [stripe-payment] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-29T11:26:09.524Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Starting Main using Java 21.0.8 with PID 97397 (/home/suresh/project_workspace/hopebridge/target/classes started by suresh in /home/suresh/project_workspace/hopebridge)
+2025-10-29T11:26:09.524Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T11:26:09.814Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T11:26:09.831Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 7 JPA repository interfaces.
+2025-10-29T11:26:09.977Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-29T11:26:09.978Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T11:26:09.979Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-10-29T11:26:09.988Z  INFO 97397 --- [stripe-payment] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T11:26:09.989Z  INFO 97397 --- [stripe-payment] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 463 ms
+2025-10-29T11:26:10.066Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-10-29T11:26:10.077Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn11: url=jdbc:h2:mem:dnsdb user=SA
+2025-10-29T11:26:10.078Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-10-29T11:26:10.133Z  INFO 97397 --- [stripe-payment] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T11:26:10.136Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T11:26:10.147Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T11:26:10.149Z  WARN 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T11:26:10.150Z  INFO 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29T11:26:10.298Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T11:26:10.299Z  INFO 97397 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:10.394Z  INFO 97397 --- [stripe-payment] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-29T11:26:10.394Z  WARN 97397 --- [stripe-payment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-29T11:26:10.698Z  WARN 97397 --- [stripe-payment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T11:26:10.887Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-10-29T11:26:11.166Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:dnsdb'
+2025-10-29T11:26:11.185Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-29T11:26:11.214Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-29T11:26:11.222Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Started Main in 1.72 seconds (process running for 171.894)
+2025-10-29T11:26:11.227Z  INFO 97397 --- [stripe-payment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-10-29T11:26:12.589Z  INFO 97397 --- [stripe-payment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2025-10-29T11:26:12.592Z  INFO 97397 --- [stripe-payment] [Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29T11:26:12.595Z  INFO 97397 --- [stripe-payment] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-29T11:26:12.600Z  INFO 97397 --- [stripe-payment] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:12.603Z  WARN 97397 --- [stripe-payment] [Thread-7] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-10-29T11:26:12.604Z  INFO 97397 --- [stripe-payment] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-10-29T11:26:12.606Z  INFO 97397 --- [stripe-payment] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-10-29T11:26:12.703Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Starting Main using Java 21.0.8 with PID 97397 (/home/suresh/project_workspace/hopebridge/target/classes started by suresh in /home/suresh/project_workspace/hopebridge)
+2025-10-29T11:26:12.704Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T11:26:12.882Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T11:26:12.899Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 7 JPA repository interfaces.
+2025-10-29T11:26:12.989Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-29T11:26:12.990Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T11:26:12.990Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-10-29T11:26:13.000Z  INFO 97397 --- [stripe-payment] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T11:26:13.000Z  INFO 97397 --- [stripe-payment] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 295 ms
+2025-10-29T11:26:13.070Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-10-29T11:26:13.074Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn21: url=jdbc:h2:mem:dnsdb user=SA
+2025-10-29T11:26:13.075Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-10-29T11:26:13.122Z  INFO 97397 --- [stripe-payment] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T11:26:13.126Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T11:26:13.134Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T11:26:13.136Z  WARN 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T11:26:13.137Z  INFO 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29T11:26:13.241Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T11:26:13.242Z  INFO 97397 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:13.325Z  INFO 97397 --- [stripe-payment] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-29T11:26:13.326Z  WARN 97397 --- [stripe-payment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-29T11:26:13.523Z  WARN 97397 --- [stripe-payment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T11:26:13.629Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-10-29T11:26:13.826Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:dnsdb'
+2025-10-29T11:26:13.841Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-29T11:26:13.859Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-29T11:26:13.865Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Started Main in 1.177 seconds (process running for 174.537)
+2025-10-29T11:26:13.867Z  INFO 97397 --- [stripe-payment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-10-29T11:26:27.355Z  INFO 97397 --- [stripe-payment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2025-10-29T11:26:27.357Z  INFO 97397 --- [stripe-payment] [Thread-12] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29T11:26:27.359Z  INFO 97397 --- [stripe-payment] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-29T11:26:27.361Z  INFO 97397 --- [stripe-payment] [Thread-12] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:27.362Z  WARN 97397 --- [stripe-payment] [Thread-12] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-10-29T11:26:27.363Z  INFO 97397 --- [stripe-payment] [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-10-29T11:26:27.363Z  INFO 97397 --- [stripe-payment] [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2025-10-29T11:26:27.443Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Starting Main using Java 21.0.8 with PID 97397 (/home/suresh/project_workspace/hopebridge/target/classes started by suresh in /home/suresh/project_workspace/hopebridge)
+2025-10-29T11:26:27.443Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T11:26:27.621Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T11:26:27.635Z  INFO 97397 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 7 JPA repository interfaces.
+2025-10-29T11:26:27.775Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-29T11:26:27.778Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T11:26:27.779Z  INFO 97397 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-10-29T11:26:27.794Z  INFO 97397 --- [stripe-payment] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T11:26:27.794Z  INFO 97397 --- [stripe-payment] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 350 ms
+2025-10-29T11:26:27.954Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2025-10-29T11:26:27.956Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection conn31: url=jdbc:h2:mem:dnsdb user=SA
+2025-10-29T11:26:27.957Z  INFO 97397 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2025-10-29T11:26:27.981Z  INFO 97397 --- [stripe-payment] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T11:26:27.982Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T11:26:27.986Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T11:26:27.987Z  WARN 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T11:26:27.988Z  INFO 97397 --- [stripe-payment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29T11:26:28.078Z  INFO 97397 --- [stripe-payment] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T11:26:28.078Z  INFO 97397 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:28.189Z  INFO 97397 --- [stripe-payment] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-29T11:26:28.189Z  WARN 97397 --- [stripe-payment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-29T11:26:28.421Z  WARN 97397 --- [stripe-payment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T11:26:28.532Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-10-29T11:26:28.739Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:dnsdb'
+2025-10-29T11:26:28.757Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-29T11:26:28.775Z  INFO 97397 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-29T11:26:28.782Z  INFO 97397 --- [stripe-payment] [restartedMain] com.dns.Main                             : Started Main in 1.358 seconds (process running for 189.375)
+2025-10-29T11:26:28.784Z  INFO 97397 --- [stripe-payment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-10-29T11:26:37.741Z  INFO 97397 --- [stripe-payment] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29T11:26:37.743Z  INFO 97397 --- [stripe-payment] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-29T11:26:37.749Z  INFO 97397 --- [stripe-payment] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:37.751Z  WARN 97397 --- [stripe-payment] [SpringApplicationShutdownHook] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-10-29T11:26:37.751Z  INFO 97397 --- [stripe-payment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2025-10-29T11:26:37.753Z  INFO 97397 --- [stripe-payment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2025-10-29T11:26:48.496Z  INFO 99638 --- [stripe-payment] [restartedMain] com.dns.Main                             : Starting Main using Java 21.0.8 with PID 99638 (/home/suresh/project_workspace/hopebridge/target/classes started by suresh in /home/suresh/project_workspace/hopebridge)
+2025-10-29T11:26:48.498Z  INFO 99638 --- [stripe-payment] [restartedMain] com.dns.Main                             : No active profile set, falling back to 1 default profile: "default"
+2025-10-29T11:26:48.532Z  INFO 99638 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29T11:26:48.532Z  INFO 99638 --- [stripe-payment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29T11:26:49.506Z  INFO 99638 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T11:26:49.561Z  INFO 99638 --- [stripe-payment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 7 JPA repository interfaces.
+2025-10-29T11:26:50.062Z  INFO 99638 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-29T11:26:50.076Z  INFO 99638 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T11:26:50.076Z  INFO 99638 --- [stripe-payment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-10-29T11:26:50.107Z  INFO 99638 --- [stripe-payment] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T11:26:50.108Z  INFO 99638 --- [stripe-payment] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1575 ms
+2025-10-29T11:26:50.240Z  INFO 99638 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-29T11:26:50.381Z  INFO 99638 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:dnsdb user=SA
+2025-10-29T11:26:50.384Z  INFO 99638 --- [stripe-payment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-29T11:26:50.512Z  INFO 99638 --- [stripe-payment] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T11:26:50.543Z  INFO 99638 --- [stripe-payment] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-10-29T11:26:50.566Z  INFO 99638 --- [stripe-payment] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T11:26:50.783Z  INFO 99638 --- [stripe-payment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T11:26:50.815Z  WARN 99638 --- [stripe-payment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29T11:26:50.842Z  INFO 99638 --- [stripe-payment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29T11:26:51.704Z  INFO 99638 --- [stripe-payment] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T11:26:51.707Z  INFO 99638 --- [stripe-payment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T11:26:52.018Z  INFO 99638 --- [stripe-payment] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-29T11:26:52.019Z  WARN 99638 --- [stripe-payment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-29T11:26:52.069Z  INFO 99638 --- [stripe-payment] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-29T11:26:54.467Z  WARN 99638 --- [stripe-payment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T11:26:54.754Z  INFO 99638 --- [stripe-payment] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-10-29T11:26:55.271Z  INFO 99638 --- [stripe-payment] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:dnsdb'
+2025-10-29T11:26:55.317Z  INFO 99638 --- [stripe-payment] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-29T11:26:55.405Z  INFO 99638 --- [stripe-payment] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-29T11:26:55.418Z  INFO 99638 --- [stripe-payment] [restartedMain] com.dns.Main                             : Started Main in 7.305 seconds (process running for 7.571)
+2025-10-29T11:27:41.873Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29T11:27:41.874Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-29T11:27:41.879Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2025-10-29T11:27:42.218Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:27:56.556Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-6] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:04.778Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-10] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:04.779Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:16.667Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-5] com.dns.controller.UserController        : User Suresh is authenticated
+2025-10-29T11:28:16.681Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-5] com.dns.controller.UserController        : Token generated for Suresh
+2025-10-29T11:28:16.735Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-7] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:16.754Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-7] com.dns.controller.CampaignController    : Fetching campaigns for admin ID: 1
+2025-10-29T11:28:18.622Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:18.625Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.controller.CampaignController    : Fetching campaigns for admin ID: 1
+2025-10-29T11:28:20.077Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-3] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:20.077Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-5] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:20.077Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-4] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:28:20.080Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-3] com.dns.controller.CampaignController    : Fetching campaign ID: 1 for admin ID: 1
+2025-10-29T11:28:20.080Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-4] com.dns.controller.CampaignController    : Fetching donations for campaign ID: 1 by admin ID: 1
+2025-10-29T11:29:14.588Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-10] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:14.591Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-10] com.dns.controller.CampaignController    : Fetching campaigns for admin ID: 1
+2025-10-29T11:29:17.224Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-4] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:17.224Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-3] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:17.228Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-4] com.dns.controller.CampaignController    : Fetching donations for campaign ID: 1 by admin ID: 1
+2025-10-29T11:29:17.228Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-3] com.dns.controller.CampaignController    : Fetching campaign ID: 1 for admin ID: 1
+2025-10-29T11:29:17.233Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-8] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:23.284Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.controller.UserController        : User Vignesh is authenticated
+2025-10-29T11:29:23.287Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.controller.UserController        : Token generated for Vignesh
+2025-10-29T11:29:23.324Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:28.373Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-4] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:28.373Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-6] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:36.423Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-8] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:36.430Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-8] com.dns.controller.DonationController    : Creating checkout session for donor ID: 3
+2025-10-29T11:29:55.169Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:55.187Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.controller.DonationController    : Confirming donation for session ID: cs_test_a1oFln39aCCTDnqv86FWn4FdAmALHoqfejHwZsWHeQIgnMjieV42HJs2cg
+2025-10-29T11:29:57.533Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] c.dns.service.impl.DonationServiceImpl   : Donation confirmed: INR 1000.0 added to campaign 'Help Asha Recover from Heart Surgery'. New total: INR 1000.0
+2025-10-29T11:29:57.554Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.controller.DonationController    : Donation confirmed successfully for session ID: cs_test_a1oFln39aCCTDnqv86FWn4FdAmALHoqfejHwZsWHeQIgnMjieV42HJs2cg
+2025-10-29T11:29:58.808Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:29:58.811Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-1] com.dns.controller.DonationController    : Fetching donations for donor ID: 3
+2025-10-29T11:30:00.320Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-2] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:30:01.771Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-3] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:30:01.771Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-8] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:24.886Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-10] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:24.886Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:29.547Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-6] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:29.549Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-6] com.dns.controller.DonationController    : Fetching donations for donor ID: 3
+2025-10-29T11:31:31.049Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-7] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:31.050Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-8] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:40.105Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.controller.UserController        : User Suresh is authenticated
+2025-10-29T11:31:40.109Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-9] com.dns.controller.UserController        : Token generated for Suresh
+2025-10-29T11:31:40.147Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-5] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:40.149Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-5] com.dns.controller.CampaignController    : Fetching campaigns for admin ID: 1
+2025-10-29T11:31:42.687Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-4] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:42.687Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-3] com.dns.filter.JwtAuthFilter             : Token validated...
+2025-10-29T11:31:42.690Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-3] com.dns.controller.CampaignController    : Fetching donations for campaign ID: 1 by admin ID: 1
+2025-10-29T11:31:42.690Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-4] com.dns.controller.CampaignController    : Fetching campaign ID: 1 for admin ID: 1
+2025-10-29T11:31:42.697Z  INFO 99638 --- [stripe-payment] [http-nio-8080-exec-7] com.dns.filter.JwtAuthFilter             : Token validated...
