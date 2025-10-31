@@ -1,0 +1,32 @@
+services:
+  backend:
+    image: sureshvasantha/hopebridge-backend:latest
+    container_name: hopebridge-backend-server
+    build: ./hopebridge
+    ports:
+      - "9090:8080"
+    networks:
+      - hopebridge-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/public/campaigns"]
+      interval: 15s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
+
+  frontend:
+    image: sureshvasantha/hopebridge-frontend:latest
+    container_name: hopebridge-frontend-server
+    build: ./hopebridge-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - hopebridge-net
+
+networks:
+  hopebridge-net:
+    name: hopebridge-net
+    driver: bridge
